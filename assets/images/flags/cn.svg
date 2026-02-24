@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <clipPath id="cn-clip"><circle cx="256" cy="256" r="256"/></clipPath>
+  </defs>
+  <g clip-path="url(#cn-clip)">
+    <rect width="512" height="512" fill="#DE2910"/>
+    <g fill="#FFDE00" transform="translate(90,100)">
+      <polygon points="60,0 74,42 118,42 82,68 96,110 60,84 24,110 38,68 2,42 46,42"/>
+    </g>
+    <g fill="#FFDE00" transform="translate(200,40)">
+      <polygon points="16,0 20,11 32,11 22,18 26,30 16,22 6,30 10,18 0,11 12,11"/>
+    </g>
+    <g fill="#FFDE00" transform="translate(240,80)">
+      <polygon points="16,0 20,11 32,11 22,18 26,30 16,22 6,30 10,18 0,11 12,11"/>
+    </g>
+    <g fill="#FFDE00" transform="translate(240,140)">
+      <polygon points="16,0 20,11 32,11 22,18 26,30 16,22 6,30 10,18 0,11 12,11"/>
+    </g>
+    <g fill="#FFDE00" transform="translate(200,190)">
+      <polygon points="16,0 20,11 32,11 22,18 26,30 16,22 6,30 10,18 0,11 12,11"/>
+    </g>
+  </g>
+</svg>
