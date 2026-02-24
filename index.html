@@ -3,344 +3,371 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Espinosa Estúdio de Design - Soluções em Arquitetura, Design de Interiores e Marcenaria">
+  <meta name="description" data-i18n-attr="content:meta.description" content="Espinosa Estúdio de Design — Soluções em Arquitetura, Design de Interiores e Marcenaria. Projetos sob medida que unem função, forma e expressão.">
+  <meta name="theme-color" content="#1e1e1e">
+
   <title>ESPINOSA | Estúdio de Design</title>
-  
-  <link rel="icon" type="image/svg+xml" href="./img/favicon.svg">
-  <link rel="stylesheet" href="./css/style.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <!-- Header Fixo Global (fora do .page para ficar fixo) -->
-  <header class="header" id="main-header">
-    <div class="header__inner">
-      <a href="#inicio" class="header__logo">
-        <!-- Logo E -->
-        <svg viewBox="0 0 110 110">
-          <path fill="#1e1e1e" d="M5 5 h100 v20 h-80 v20 h80 v20 h-80 v20 h80 v20 h-100 z" />
-        </svg>
-      </a>
-      
-      <nav class="nav" aria-label="Navegação principal">
-        <a href="#servicos" class="nav__item">SERVIÇOS</a>
-        <a href="#produtos" class="nav__item">PRODUTOS</a>
-        <a href="#sobre" class="nav__item">SOBRE</a>
-        <a href="#contato" class="nav__item">CONTATO</a>
-        <a href="/en/" class="nav__item nav__item--lang">ENGLISH</a>
-      </nav>
-      
-      <a href="/en/" class="header__lang" aria-label="Switch to English">| EN</a>
-      
-      <!-- Mobile Menu Toggle -->
-      <button class="header__mobile-toggle" aria-label="Abrir menu" aria-expanded="false">
-        <span class="header__mobile-toggle-bar"></span>
-        <span class="header__mobile-toggle-bar"></span>
-        <span class="header__mobile-toggle-bar"></span>
+  <a href="#main-content" class="skip-link" data-i18n="skip">Pular para o conteúdo principal</a>
+
+  <header class="catalog-header catalog-header--hidden" id="global-header">
+    <a href="#home" class="catalog-header__logo" aria-label="EED — Ir para o início">
+      <svg viewBox="0 0 110 110" class="catalog-header__logo-svg" aria-hidden="true">
+        <path fill="#1e1e1e" d="M5 5 h100 v20 h-80 v20 h80 v20 h-80 v20 h80 v20 h-100 z" />
+      </svg>
+    </a>
+    <nav class="catalog-header__nav" data-i18n-attr="aria-label:aria.nav" aria-label="Navegação principal">
+      <ul class="catalog-header__nav-list">
+        <li><a href="#produtos" class="catalog-header__nav-link" data-i18n="nav.products">Produtos</a></li>
+        <li><a href="#servicos" class="catalog-header__nav-link" data-i18n="nav.services">Serviços</a></li>
+        <li><a href="#sobre" class="catalog-header__nav-link" data-i18n="nav.about">Sobre</a></li>
+        <li><a href="#contato" class="catalog-header__nav-link" data-i18n="nav.contact">Contato</a></li>
+      </ul>
+    </nav>
+    <div class="lang-selector">
+      <button type="button" class="lang-selector__toggle" aria-haspopup="listbox" aria-expanded="false" data-i18n-attr="aria-label:aria.lang" aria-label="Selecionar idioma">
+        <img src="assets/images/flags/br.svg" alt="" class="lang-selector__flag" aria-hidden="true">
       </button>
+      <ul class="lang-selector__list" role="listbox" data-i18n-attr="aria-label:aria.langList" aria-label="Idiomas disponíveis">
+        <li role="option" aria-selected="true" aria-label="Português"><button type="button" class="lang-selector__option" data-lang="pt" data-flag="assets/images/flags/br.svg"><img src="assets/images/flags/br.svg" alt="Português" class="lang-selector__flag"></button></li>
+        <li role="option" aria-selected="false" aria-label="English"><button type="button" class="lang-selector__option" data-lang="en" data-flag="assets/images/flags/us.svg"><img src="assets/images/flags/us.svg" alt="English" class="lang-selector__flag"></button></li>
+        <li role="option" aria-selected="false" aria-label="Español"><button type="button" class="lang-selector__option" data-lang="es" data-flag="assets/images/flags/es.svg"><img src="assets/images/flags/es.svg" alt="Español" class="lang-selector__flag"></button></li>
+        <li role="option" aria-selected="false" aria-label="中文"><button type="button" class="lang-selector__option" data-lang="zh" data-flag="assets/images/flags/cn.svg"><img src="assets/images/flags/cn.svg" alt="中文" class="lang-selector__flag"></button></li>
+      </ul>
     </div>
   </header>
 
-  <div class="page">
-    <!-- ============================================
-         HERO SECTION
-         ============================================ -->
-    <section class="section hero" id="inicio">
-      <!-- Hero Content -->
-      <div class="hero__content">
-        <!-- Logo Principal: Grade 3x3 ESPINOSA + estúdio de design -->
-        <div class="hero__logo-grid">
-          <!-- Linha 1: E S P -->
-          <div class="hero__logo-cell">
-            <svg viewBox="0 0 110 110">
-              <path fill="#dadada" d="M5 5 h100 v20 h-80 v20 h80 v20 h-80 v20 h80 v20 h-100 z" />
-            </svg>
+  <main id="main-content" class="scroll-container">
+
+    <!-- SEÇÃO 1: HOME -->
+    <section
+      class="section section--home"
+      id="home"
+      data-i18n-attr="aria-label:aria.home"
+      aria-label="Página inicial"
+    >
+      <div class="home__content">
+        <h1 class="visually-hidden">Espinosa — Estúdio de Design</h1>
+        <div class="home__logo-grid" role="img" data-i18n-attr="aria-label:aria.homeLogoGrid" aria-label="ESPINOSA — estúdio de design">
+          <div class="home__logo-cell">
+            <svg viewBox="0 0 110 110"><path fill="#dadada" d="M5 5 h100 v20 h-80 v20 h80 v20 h-80 v20 h80 v20 h-100 z" /></svg>
           </div>
-          <div class="hero__logo-cell">
-            <svg viewBox="0 0 110 110">
-              <path fill="#dadada" d="M105 5 v20 h-70 A1,1 0 0 0 35,45 h40 A1,1 0 0 1 75,105 h-70 v-20 h70 A1,1 0 0 0 75 65 h-40 A1,1 0 0 1 35 5 z" />
-            </svg>
+          <div class="home__logo-cell">
+            <svg viewBox="0 0 110 110"><path fill="#dadada" d="M105 5 v20 h-70 A1,1 0 0 0 35,45 h40 A1,1 0 0 1 75,105 h-70 v-20 h70 A1,1 0 0 0 75 65 h-40 A1,1 0 0 1 35 5 z" /></svg>
           </div>
-          <div class="hero__logo-cell">
-            <svg viewBox="0 0 110 110">
-              <path fill="#dadada" d="M75,5 A1,1 0 0 1 75,65 h-50 v40 h-20 v-60 h70 A1,1 0 0 0 75,25 h-70 v-20 z" />
-            </svg>
+          <div class="home__logo-cell">
+            <svg viewBox="0 0 110 110"><path fill="#dadada" d="M75,5 A1,1 0 0 1 75,65 h-50 v40 h-20 v-60 h70 A1,1 0 0 0 75,25 h-70 v-20 z" /></svg>
           </div>
-          
-          <!-- Linha 2: I N O -->
-          <div class="hero__logo-cell">
-            <svg viewBox="0 0 110 110">
-              <path fill="#dadada" d="M5 5 h100 v20 h-40 v60 h40 v20 h-100 v-20 h40 v-60 h-40 z" />
-            </svg>
+          <div class="home__logo-cell">
+            <svg viewBox="0 0 110 110"><path fill="#dadada" d="M5 5 h100 v20 h-40 v60 h40 v20 h-100 v-20 h40 v-60 h-40 z" /></svg>
           </div>
-          <div class="hero__logo-cell">
-            <svg viewBox="0 0 110 110">
-              <path fill="#dadada" d="M5 5 v100 h20 v-65 l65 65 h15 v-100 h-20 v65 l-65 -65 z" />
-            </svg>
+          <div class="home__logo-cell">
+            <svg viewBox="0 0 110 110"><path fill="#dadada" d="M5 5 v100 h20 v-65 l65 65 h15 v-100 h-20 v65 l-65 -65 z" /></svg>
           </div>
-          <div class="hero__logo-cell">
-            <svg viewBox="0 0 110 110">
-              <circle cx="55" cy="55" r="50" fill="#dadada"/>
-              <circle cx="55" cy="55" r="30" fill="#1e1e1e"/>
-            </svg>
+          <div class="home__logo-cell">
+            <svg viewBox="0 0 110 110"><circle cx="55" cy="55" r="50" fill="#dadada"/><circle cx="55" cy="55" r="30" fill="#1e1e1e"/></svg>
           </div>
-          
-          <!-- Linha 3: S A [estúdio de design] -->
-          <div class="hero__logo-cell">
-            <svg viewBox="0 0 110 110">
-              <path fill="#dadada" d="M105 5 v20 h-70 A1,1 0 0 0 35,45 h40 A1,1 0 0 1 75,105 h-70 v-20 h70 A1,1 0 0 0 75 65 h-40 A1,1 0 0 1 35 5 z" />
-            </svg>
+          <div class="home__logo-cell">
+            <svg viewBox="0 0 110 110"><path fill="#dadada" d="M105 5 v20 h-70 A1,1 0 0 0 35,45 h40 A1,1 0 0 1 75,105 h-70 v-20 h70 A1,1 0 0 0 75 65 h-40 A1,1 0 0 1 35 5 z" /></svg>
           </div>
-          <div class="hero__logo-cell">
-            <svg viewBox="0 0 110 110">
-              <path fill="#dadada" d="M45 5 h20 l40 100 h-21.55 l-8 -20 h-40.92 l-8 20 h-21.55 z" />
-              <path fill="#1e1e1e" d="M55 33.85 l12.46 31.15 h-24.92 z" />
-            </svg>
+          <div class="home__logo-cell">
+            <svg viewBox="0 0 110 110"><path fill="#dadada" d="M45 5 h20 l40 100 h-21.55 l-8 -20 h-40.92 l-8 20 h-21.55 z" /><path fill="#1e1e1e" d="M55 33.85 l12.46 31.15 h-24.92 z" /></svg>
           </div>
-          <div class="hero__logo-cell hero__logo-cell--text">
-            <!-- estúdio de design -->
+          <div class="home__logo-cell home__logo-cell--text">
             <svg viewBox="0 0 110 110" fill="none">
-              <!-- estúdio de (topo) -->
               <path stroke="#dadada" stroke-width="1.5" fill="none" d="M19.2857 5 h-14.2857 v14.2857 h25 A1,1 0 0 0 30,12.1429 h-7.1429 A1,1 0 0 1 22.8571,5 h24.3552 v7.1429 A1,1 0 0 0 61.8429,11.8429 v-7.1429 h7.1429 A1,1 0 0 1 69.2857,19.2857 h-7.6429" />
               <path stroke="#dadada" stroke-width="1.5" fill="none" d="M5 12.1429 h10.0238 M40.7143 5 v14.7857" />
               <path stroke="#dadada" stroke-width="1.5" fill="none" d="M54.1161,5 L55.8839,3.2322" />
               <path stroke="#dadada" stroke-width="1.5" fill="none" d="M76.4286,5 h14.2857 M83.5714,5 v14.2857 M76.4286,19.2857 h14.2857" />
               <circle cx="97.8571" cy="12.1429" r="7.1429" fill="none" stroke="#dadada" stroke-width="1.5"/>
-              <!-- de (meio direita) -->
               <path stroke="#dadada" stroke-width="1.5" fill="none" d="M76.4286,62.1429 v-14.2857 h7.1429 A1,1 0 0 1 83.5714,62.1429 z" />
               <path stroke="#dadada" stroke-width="1.5" fill="none" d="M105,47.8571 h-14.2857 v14.2857 h14.2857 M90.7143 55 h10.0238" />
-              <!-- design (base) -->
               <path stroke="#dadada" stroke-width="1.5" fill="none" d="M19.2857,105 v-14.2857 h7.1429 A1,1 0 0 1 26.4286,105 z" />
               <path stroke="#dadada" stroke-width="1.5" fill="none" d="M47.8571,90.7143 h-14.2857 v14.2857 h25 A1,1 0 0 0 58.5714,97.8571 h-7.1429 A1,1 0 0 1 51.4286,90.7143 h24.8552 M33.5714 97.8571 h10.0238 M69.2857,90.7143 v14.2857 M62.1429,105 h14.2857 M83.5714,97.8571 h7.1429 A1,1 0 0 1 76.4286,97.8571 M76.4286,97.8571 A7,7 0 0 1 88.6222,92.8064" />
               <path stroke="#dadada" stroke-width="1.5" fill="none" d="M90.7143,105 v-14.2857 L 105 105 v-14.857" />
             </svg>
           </div>
         </div>
-        
-        <h1 class="hero__title">SOLUÇÕES &nbsp; EM &nbsp; ARQUITETURA</h1>
-      </div>
-      
-    </section>
-
-    <!-- ============================================
-         SERVIÇOS SECTION
-         ============================================ -->
-    <section class="section services" id="servicos">
-      <div class="gallery-container">
-        <button class="gallery-arrow gallery-arrow--left" aria-label="Anterior" data-direction="left">
-          <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
-        </button>
-        
-        <div class="services__gallery">
-          <article class="services__card">
-            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=80" alt="Arquitetura" loading="lazy">
-            <div class="services__card-overlay">
-              <h3 class="services__card-title">ARQUITETURA</h3>
-              <p class="services__card-desc">Projetos residenciais e comerciais</p>
-            </div>
-          </article>
-          
-          <article class="services__card">
-            <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=600&q=80" alt="Design de Interiores" loading="lazy">
-            <div class="services__card-overlay">
-              <h3 class="services__card-title">INTERIORES</h3>
-              <p class="services__card-desc">Ambientes personalizados</p>
-            </div>
-          </article>
-          
-          <article class="services__card">
-            <img src="https://images.unsplash.com/photo-1588854337236-6889d631faa8?w=600&q=80" alt="Marcenaria" loading="lazy">
-            <div class="services__card-overlay">
-              <h3 class="services__card-title">MARCENARIA</h3>
-              <p class="services__card-desc">Móveis sob medida</p>
-            </div>
-          </article>
-          
-          <article class="services__card">
-            <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&q=80" alt="Artesanato em Couro" loading="lazy">
-            <div class="services__card-overlay">
-              <h3 class="services__card-title">ARTESANATO</h3>
-              <p class="services__card-desc">Peças exclusivas em couro</p>
-            </div>
-          </article>
-        </div>
-        
-        <button class="gallery-arrow gallery-arrow--right" aria-label="Próximo" data-direction="right">
-          <svg viewBox="0 0 24 24"><path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/></svg>
-        </button>
       </div>
     </section>
 
-    <!-- ============================================
-         PRODUTOS SECTION
-         ============================================ -->
-    <section class="section products" id="produtos">
-      <div class="gallery-container">
-        <button class="gallery-arrow gallery-arrow--left" aria-label="Anterior" data-direction="left">
-          <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+    <!-- SEÇÃO 2: PRODUTOS -->
+    <section
+      class="section section--catalog"
+      id="produtos"
+      data-i18n-attr="aria-label:aria.products"
+      aria-label="Produtos"
+    >
+      <div class="carousel" data-i18n-attr="aria-label:aria.productsCarousel" aria-label="Carrossel de produtos" role="region">
+        <span class="carousel__live visually-hidden" aria-live="polite" aria-atomic="true"></span>
+        <button type="button" class="carousel__btn carousel__btn--prev" data-i18n-attr="aria-label:prod.prev" aria-label="Produto anterior" data-carousel="prev">
+          <span aria-hidden="true">&#8249;</span>
         </button>
-        
-        <div class="products__gallery">
-          <article class="products__item">
-            <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80" alt="Mobília de Alto Padrão" loading="lazy">
-            <div class="products__item-overlay">
-              <h3 class="products__item-title">MOBÍLIA DE ALTO PADRÃO</h3>
-              <p class="products__item-desc">Sofás, poltronas e mesas exclusivas</p>
+
+        <div class="carousel__track-wrapper">
+          <div class="carousel__track" id="carousel-produtos">
+            <div class="carousel__slide" aria-roledescription="slide" aria-label="Mobília de Alto Padrão — 1 de 5">
+              <div class="carousel__slide-inner">
+                <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=900&q=80" alt="Sofá de design exclusivo em sala de estar moderna" class="carousel__image" loading="lazy">
+                <div class="carousel__caption">
+                  <h3 class="carousel__caption-title" data-i18n="prod.1.title">Mobília de Alto Padrão</h3>
+                  <p class="carousel__caption-desc" data-i18n="prod.1.desc">Sofás, poltronas e mesas exclusivas</p>
+                </div>
+              </div>
             </div>
-          </article>
-          
-          <article class="products__item">
-            <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=600&q=80" alt="Cabines e Painéis Acústicos" loading="lazy">
-            <div class="products__item-overlay">
-              <h3 class="products__item-title">CABINES E PAINÉIS ACÚSTICOS</h3>
-              <p class="products__item-desc">Soluções para conforto sonoro</p>
+            <div class="carousel__slide" aria-roledescription="slide" aria-label="Cabines Acústicas — 2 de 5">
+              <div class="carousel__slide-inner">
+                <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=900&q=80" alt="Cabine acústica em ambiente de escritório" class="carousel__image" loading="lazy">
+                <div class="carousel__caption">
+                  <h3 class="carousel__caption-title" data-i18n="prod.2.title">Cabines e Painéis Acústicos</h3>
+                  <p class="carousel__caption-desc" data-i18n="prod.2.desc">Soluções para conforto sonoro</p>
+                </div>
+              </div>
             </div>
-          </article>
-          
-          <article class="products__item">
-            <img src="https://images.unsplash.com/photo-1567538096621-38d2284b23ff?w=600&q=80" alt="Design Assinado" loading="lazy">
-            <div class="products__item-overlay">
-              <h3 class="products__item-title">DESIGN ASSINADO</h3>
-              <p class="products__item-desc">Peças autorais com assinatura exclusiva</p>
+            <div class="carousel__slide" aria-roledescription="slide" aria-label="Design Assinado — 3 de 5">
+              <div class="carousel__slide-inner">
+                <img src="https://images.unsplash.com/photo-1567538096621-38d2284b23ff?w=900&q=80" alt="Peça de design autoral em madeira e couro" class="carousel__image" loading="lazy">
+                <div class="carousel__caption">
+                  <h3 class="carousel__caption-title" data-i18n="prod.3.title">Design Assinado</h3>
+                  <p class="carousel__caption-desc" data-i18n="prod.3.desc">Peças autorais com assinatura exclusiva</p>
+                </div>
+              </div>
             </div>
-          </article>
+            <div class="carousel__slide" aria-roledescription="slide" aria-label="Marcenaria sob Medida — 4 de 5">
+              <div class="carousel__slide-inner">
+                <img src="https://images.unsplash.com/photo-1588854337236-6889d631faa8?w=900&q=80" alt="Marcenaria de alta qualidade — detalhe de acabamento" class="carousel__image" loading="lazy">
+                <div class="carousel__caption">
+                  <h3 class="carousel__caption-title" data-i18n="prod.4.title">Marcenaria sob Medida</h3>
+                  <p class="carousel__caption-desc" data-i18n="prod.4.desc">Móveis projetados e executados com precisão</p>
+                </div>
+              </div>
+            </div>
+            <div class="carousel__slide" aria-roledescription="slide" aria-label="Poltrona Exclusiva — 5 de 5">
+              <div class="carousel__slide-inner">
+                <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=900&q=80" alt="Poltrona de design em ambiente residencial" class="carousel__image" loading="lazy">
+                <div class="carousel__caption">
+                  <h3 class="carousel__caption-title" data-i18n="prod.5.title">Poltrona Exclusiva</h3>
+                  <p class="carousel__caption-desc" data-i18n="prod.5.desc">Conforto e estética em cada detalhe</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        
-        <button class="gallery-arrow gallery-arrow--right" aria-label="Próximo" data-direction="right">
-          <svg viewBox="0 0 24 24"><path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/></svg>
+
+        <button type="button" class="carousel__btn carousel__btn--next" data-i18n-attr="aria-label:prod.next" aria-label="Próximo produto" data-carousel="next">
+          <span aria-hidden="true">&#8250;</span>
         </button>
       </div>
     </section>
 
-    <!-- ============================================
-         SOBRE SECTION
-         ============================================ -->
-    <section class="section about" id="sobre">
-      <div class="section__inner">
-        <!-- Frames container with tabs on top -->
-        <div class="about__frames-container">
-          <!-- Tabs Navigation - como abas de pasta -->
-          <nav class="about__tabs">
-            <button class="about__tab about__tab--active" data-tab="sobre">SOBRE</button>
-            <button class="about__tab" data-tab="missao">MISSÃO</button>
-            <button class="about__tab" data-tab="visao">VISÃO</button>
-            <button class="about__tab" data-tab="valores">VALORES</button>
-          </nav>
-          
-          <!-- Image panels -->
-          <div class="about__frames about__frames--active" data-img="sobre">
-            <div class="about__frame about__frame--1"></div>
-            <div class="about__frame about__frame--2"></div>
-            <div class="about__frame about__frame--3"></div>
-            <img class="about__image" src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&q=80" alt="Espinosa Estúdio" loading="lazy">
-          </div>
-          <div class="about__frames" data-img="missao">
-            <div class="about__frame about__frame--1"></div>
-            <div class="about__frame about__frame--2"></div>
-            <div class="about__frame about__frame--3"></div>
-            <img class="about__image" src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80" alt="Missão" loading="lazy">
-          </div>
-          <div class="about__frames" data-img="visao">
-            <div class="about__frame about__frame--1"></div>
-            <div class="about__frame about__frame--2"></div>
-            <div class="about__frame about__frame--3"></div>
-            <img class="about__image" src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=600&q=80" alt="Visão" loading="lazy">
-          </div>
-          <div class="about__frames" data-img="valores">
-            <div class="about__frame about__frame--1"></div>
-            <div class="about__frame about__frame--2"></div>
-            <div class="about__frame about__frame--3"></div>
-            <img class="about__image" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80" alt="Valores" loading="lazy">
+    <!-- SEÇÃO 3: SERVIÇOS -->
+    <section
+      class="section section--catalog"
+      id="servicos"
+      data-i18n-attr="aria-label:aria.services"
+      aria-label="Serviços"
+    >
+      <div class="carousel" data-i18n-attr="aria-label:aria.servicesCarousel" aria-label="Carrossel de serviços" role="region">
+        <span class="carousel__live visually-hidden" aria-live="polite" aria-atomic="true"></span>
+        <button type="button" class="carousel__btn carousel__btn--prev" data-i18n-attr="aria-label:serv.prev" aria-label="Serviço anterior" data-carousel="prev">
+          <span aria-hidden="true">&#8249;</span>
+        </button>
+
+        <div class="carousel__track-wrapper">
+          <div class="carousel__track" id="carousel-servicos">
+            <div class="carousel__slide" aria-roledescription="slide" aria-label="Arquitetura — 1 de 5">
+              <div class="carousel__slide-inner">
+                <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=900&q=80" alt="Projeto arquitetônico residencial — fachada moderna" class="carousel__image" loading="lazy">
+                <div class="carousel__caption">
+                  <h3 class="carousel__caption-title" data-i18n="serv.1.title">Arquitetura</h3>
+                  <p class="carousel__caption-desc" data-i18n="serv.1.desc">Projetos residenciais e comerciais</p>
+                </div>
+              </div>
+            </div>
+            <div class="carousel__slide" aria-roledescription="slide" aria-label="Design de Interiores — 2 de 5">
+              <div class="carousel__slide-inner">
+                <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=900&q=80" alt="Interior de sala de estar com design contemporâneo" class="carousel__image" loading="lazy">
+                <div class="carousel__caption">
+                  <h3 class="carousel__caption-title" data-i18n="serv.2.title">Design de Interiores</h3>
+                  <p class="carousel__caption-desc" data-i18n="serv.2.desc">Ambientes personalizados com identidade</p>
+                </div>
+              </div>
+            </div>
+            <div class="carousel__slide" aria-roledescription="slide" aria-label="Marcenaria — 3 de 5">
+              <div class="carousel__slide-inner">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&q=80" alt="Espaço residencial com marcenaria sob medida" class="carousel__image" loading="lazy">
+                <div class="carousel__caption">
+                  <h3 class="carousel__caption-title" data-i18n="serv.3.title">Marcenaria</h3>
+                  <p class="carousel__caption-desc" data-i18n="serv.3.desc">Móveis sob medida com acabamento artesanal</p>
+                </div>
+              </div>
+            </div>
+            <div class="carousel__slide" aria-roledescription="slide" aria-label="Artesanato em Couro — 4 de 5">
+              <div class="carousel__slide-inner">
+                <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=900&q=80" alt="Artesanato em couro — peças exclusivas feitas à mão" class="carousel__image" loading="lazy">
+                <div class="carousel__caption">
+                  <h3 class="carousel__caption-title" data-i18n="serv.4.title">Artesanato em Couro</h3>
+                  <p class="carousel__caption-desc" data-i18n="serv.4.desc">Peças exclusivas feitas à mão</p>
+                </div>
+              </div>
+            </div>
+            <div class="carousel__slide" aria-roledescription="slide" aria-label="Projeto Comercial — 5 de 5">
+              <div class="carousel__slide-inner">
+                <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=900&q=80" alt="Ambiente comercial com design de interiores personalizado" class="carousel__image" loading="lazy">
+                <div class="carousel__caption">
+                  <h3 class="carousel__caption-title" data-i18n="serv.5.title">Projetos Comerciais</h3>
+                  <p class="carousel__caption-desc" data-i18n="serv.5.desc">Espaços corporativos que inspiram</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        
-        <!-- Text panels -->
-        <div class="about__text-container">
-          <div class="about__text about__text--active" data-text="sobre">
-            <p>
-              Desde 2017, o <strong>Espinosa Estúdio de Design</strong> busca a excelência em 
-              Arte e Design por meio da Arquitetura, Marcenaria, Artesanato e suas vertentes.
-              <br><br>
-              Assumindo o <strong>Desafio do Exclusivo</strong> como abordagem fundamental, 
-              priorizamos a criação de projetos sob medida, incorporando singularidade ao 
-              objeto construído, fomentando assim a produção de arte autêntica.
-              <br><br>
-              <strong>FUNÇÃO • FORMA • EXPRESSÃO</strong>
+
+        <button type="button" class="carousel__btn carousel__btn--next" data-i18n-attr="aria-label:serv.next" aria-label="Próximo serviço" data-carousel="next">
+          <span aria-hidden="true">&#8250;</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- SEÇÃO 4: SOBRE -->
+    <section
+      class="section section--about"
+      id="sobre"
+      data-i18n-attr="aria-label:aria.about"
+      aria-label="Sobre"
+    >
+      <div class="about__content">
+        <div class="about__left">
+          <div class="about__text">
+            <h2 class="about__title" data-i18n="about.title">Sobre o Escritório</h2>
+            <p class="about__paragraph" data-i18n-html="about.p1">
+              Desde 2017, o <strong>Espinosa Estúdio de Design</strong> busca a excelência em Arte e Design por meio da Arquitetura, Marcenaria, Artesanato e suas vertentes.
+            </p>
+            <p class="about__paragraph" data-i18n-html="about.p2">
+              Assumindo o <strong>Desafio do Exclusivo</strong> como abordagem fundamental, priorizamos a criação de projetos sob medida, incorporando singularidade ao objeto construído, fomentando assim a produção de arte autêntica.
+            </p>
+            <p class="about__paragraph" data-i18n-html="about.p3">
+              <strong>FUNÇÃO &bull; FORMA &bull; EXPRESSÃO</strong>
             </p>
           </div>
-          <div class="about__text" data-text="missao">
-            <p>
-              Transformar ideias em realidade através de <strong>soluções integradas</strong> 
-              em arquitetura, marcenaria e artesanato, combinando técnicas tradicionais com 
-              tecnologia, para criar projetos sob medida que unam <strong>função, arte e 
-              autenticidade</strong>.
-            </p>
+          <div class="about__clients">
+            <h3 class="about__clients-title" data-i18n="about.clients">Nossos Clientes</h3>
+            <div class="about__clients-track" data-i18n-attr="aria-label:aria.clientsCarousel" aria-label="Carrossel de clientes">
+              <img src="assets/images/clients/folha-sp.svg" alt="Folha de São Paulo" class="about__client-logo" loading="lazy">
+              <img src="assets/images/clients/etec-lauro-gomes.jpg" alt="ETEC Lauro Gomes" class="about__client-logo" loading="lazy">
+              <img src="assets/images/clients/parador.svg" alt="Restaurante Parador" class="about__client-logo" loading="lazy">
+              <img src="assets/images/clients/renata-sampaio.svg" alt="Edifício Renata Sampaio" class="about__client-logo" loading="lazy">
+              <img src="assets/images/clients/isca-sp.svg" alt="Restaurante Isca SP" class="about__client-logo" loading="lazy">
+              <img src="assets/images/clients/folha-sp.svg" alt="" class="about__client-logo" aria-hidden="true" loading="lazy">
+              <img src="assets/images/clients/etec-lauro-gomes.jpg" alt="" class="about__client-logo" aria-hidden="true" loading="lazy">
+              <img src="assets/images/clients/parador.svg" alt="" class="about__client-logo" aria-hidden="true" loading="lazy">
+              <img src="assets/images/clients/renata-sampaio.svg" alt="" class="about__client-logo" aria-hidden="true" loading="lazy">
+              <img src="assets/images/clients/isca-sp.svg" alt="" class="about__client-logo" aria-hidden="true" loading="lazy">
+            </div>
           </div>
-          <div class="about__text" data-text="visao">
-            <p>
-              Ser referência em <strong>soluções personalizadas</strong> que reinventam espaços 
-              e objetos, aliando inovação tecnológica à artesania para inspirar um futuro onde 
-              cada projeto é uma <strong>obra funcional e única</strong>.
-            </p>
-          </div>
-          <div class="about__text about__text--values" data-text="valores">
-            <ul class="about__values-list">
-              <li><strong>Customização Radical</strong><br>Entregar soluções feitas sob medida para atender necessidades específicas.</li>
-              <li><strong>Inovação Criativa</strong><br>Unir técnicas manuais à precisão da tecnologia.</li>
-              <li><strong>Arte com Propósito</strong><br>Criar design que equilibra estética, funcionalidade e identidade.</li>
-              <li><strong>Sustentabilidade Inteligente</strong><br>Utilizar materiais e processos eficientes, do design à execução.</li>
-              <li><strong>Cocriação</strong><br>Ouvir, estudar e transformar demandas em projetos memoráveis.</li>
-            </ul>
+        </div>
+        <div class="about__right">
+          <div class="about__tabs-container">
+            <div class="about__tabs-nav" role="tablist" data-i18n-attr="aria-label:aria.tablist" aria-label="Missão, Visão e Valores">
+              <button type="button" class="about__tab-handle about__tab-handle--active" data-tab-target="missao" role="tab" aria-selected="true" aria-controls="tab-missao" data-i18n="about.tab.mission">Missão</button>
+              <button type="button" class="about__tab-handle" data-tab-target="visao" role="tab" aria-selected="false" aria-controls="tab-visao" data-i18n="about.tab.vision">Visão</button>
+              <button type="button" class="about__tab-handle" data-tab-target="valores" role="tab" aria-selected="false" aria-controls="tab-valores" data-i18n="about.tab.values">Valores</button>
+            </div>
+            <div class="about__tabs-panels">
+              <div class="about__tab-card about__tab-card--active" id="tab-missao" data-tab="missao" role="tabpanel">
+                <div class="about__tab-body">
+                  <p data-i18n-html="about.mission">Transformar ideias em realidade através de <strong>soluções integradas</strong> em arquitetura, marcenaria e artesanato, combinando técnicas tradicionais com tecnologia, para criar projetos sob medida que unam <strong>função, arte e autenticidade</strong>.</p>
+                </div>
+              </div>
+              <div class="about__tab-card" id="tab-visao" data-tab="visao" role="tabpanel">
+                <div class="about__tab-body">
+                  <p data-i18n-html="about.vision">Ser referência em <strong>soluções personalizadas</strong> que reinventam espaços e objetos, aliando inovação tecnológica à artesania para inspirar um futuro onde cada projeto é uma <strong>obra funcional e única</strong>.</p>
+                </div>
+              </div>
+              <div class="about__tab-card" id="tab-valores" data-tab="valores" role="tabpanel">
+                <div class="about__tab-body">
+                  <ul class="about__values-list">
+                    <li data-i18n-html="about.val.1"><strong>Customização Radical</strong> — Soluções feitas sob medida</li>
+                    <li data-i18n-html="about.val.2"><strong>Inovação Criativa</strong> — Técnicas manuais + tecnologia</li>
+                    <li data-i18n-html="about.val.3"><strong>Arte com Propósito</strong> — Estética, função e identidade</li>
+                    <li data-i18n-html="about.val.4"><strong>Sustentabilidade</strong> — Materiais e processos eficientes</li>
+                    <li data-i18n-html="about.val.5"><strong>Cocriação</strong> — Demandas transformadas em projetos memoráveis</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ============================================
-         CONTATO SECTION
-         ============================================ -->
-    <section class="section contact" id="contato">
-      <div class="contact__form-wrapper">
-        <form class="contact__form" id="contact-form">
-          <input type="text" class="contact__input" name="name" placeholder="Nome" required>
-          <input type="email" class="contact__input" name="email" placeholder="Email" required>
-          <select class="contact__select" name="subject" required>
-            <option value="" disabled selected>Assunto</option>
-            <option value="arquitetura">Projeto de Arquitetura</option>
-            <option value="interiores">Design de Interiores</option>
-            <option value="marcenaria">Marcenaria</option>
-            <option value="artesanato">Artesanato em Couro</option>
-            <option value="produtos">Produtos</option>
-            <option value="orcamento">Orçamento</option>
-            <option value="outro">Outro</option>
-          </select>
-          <textarea class="contact__textarea" name="message" placeholder="Mensagem" required></textarea>
-          <button type="submit" class="contact__submit">ENVIAR</button>
-        </form>
+    <!-- SEÇÃO 5: CONTATO -->
+    <section
+      class="section section--contact"
+      id="contato"
+      data-i18n-attr="aria-label:aria.contact"
+      aria-label="Contato"
+    >
+      <div class="contact__content">
+        <div class="contact__form-wrapper">
+          <h2 class="contact__title" data-i18n="contact.title">Entre em Contato</h2>
+          <form class="contact__form" id="contact-form" novalidate>
+            <input type="text" class="contact__input" name="name" data-i18n-attr="placeholder:contact.name,aria-label:contact.name" placeholder="Nome" required aria-label="Nome">
+            <input type="email" class="contact__input" name="email" data-i18n-attr="placeholder:contact.email,aria-label:contact.email" placeholder="E-mail" required aria-label="E-mail">
+            <select class="contact__select" name="subject" required data-i18n-attr="aria-label:contact.subject" aria-label="Assunto">
+              <option value="" disabled selected data-i18n="contact.subject">Assunto</option>
+              <option value="arquitetura" data-i18n="contact.opt.arch">Projeto de Arquitetura</option>
+              <option value="interiores" data-i18n="contact.opt.int">Design de Interiores</option>
+              <option value="marcenaria" data-i18n="contact.opt.carp">Marcenaria</option>
+              <option value="artesanato" data-i18n="contact.opt.leather">Artesanato em Couro</option>
+              <option value="produtos" data-i18n="contact.opt.prod">Produtos</option>
+              <option value="orcamento" data-i18n="contact.opt.budget">Orçamento</option>
+              <option value="outro" data-i18n="contact.opt.other">Outro</option>
+            </select>
+            <textarea class="contact__textarea" name="message" data-i18n-attr="placeholder:contact.message,aria-label:contact.message" placeholder="Mensagem" required aria-label="Mensagem"></textarea>
+            <button type="submit" class="contact__submit" data-i18n="contact.submit">Enviar</button>
+          </form>
+        </div>
+        <div class="contact__social">
+          <a href="https://instagram.com/espinosa.design" target="_blank" rel="noopener noreferrer" class="contact__social-circle" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="mailto:contato@espinosa.design" class="contact__social-circle" aria-label="E-mail">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          </a>
+          <a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer" class="contact__social-circle" aria-label="WhatsApp">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+          </a>
+        </div>
       </div>
-      
-      <div class="contact__social">
-        <a href="https://instagram.com" target="_blank" class="contact__social-btn" aria-label="Instagram">
-          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+
+      <footer class="contact-footer">
+        <a href="#home" class="contact-footer__brand">
+          <span class="contact-footer__brand-name">ESPINOSA</span>
+          <span class="contact-footer__brand-tagline">ESTÚDIO DE DESIGN</span>
         </a>
-        <a href="https://linkedin.com" target="_blank" class="contact__social-btn" aria-label="LinkedIn">
-          <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-        </a>
-        <a href="https://wa.me/5511999999999" target="_blank" class="contact__social-btn" aria-label="WhatsApp">
-          <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-        </a>
-      </div>
-      
-      <footer class="footer">
-        <a href="#inicio" class="footer__brand">
-          <span class="footer__brand-name">ESPINOSA</span>
-          <span class="footer__brand-tagline">ESTÚDIO DE DESIGN</span>
-        </a>
-        <span class="footer__location">BRASIL</span>
+        <span class="contact-footer__location">BRASIL</span>
       </footer>
-      
     </section>
 
+  </main>
+
+  <div class="modal-overlay" id="slide-modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <button type="button" class="modal-overlay__close" data-i18n-attr="aria-label:aria.closeModal" aria-label="Fechar">&times;</button>
+    <div class="modal-overlay__content">
+      <h3 class="modal-overlay__title"></h3>
+      <p class="modal-overlay__desc"></p>
+    </div>
   </div>
 
-  <script src="./js/main.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>

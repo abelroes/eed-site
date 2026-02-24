@@ -1,242 +1,495 @@
-/**
- * ESPINOSA Estúdio de Design
- * JavaScript - Interatividade Essencial
- */
+(function () {
+  'use strict';
 
-document.addEventListener('DOMContentLoaded', () => {
-  // ============================================
-  // Header - Transição baseada na seção visível
-  // ============================================
-  const header = document.getElementById('main-header');
-  const heroSection = document.getElementById('inicio');
-  const navItems = header.querySelectorAll('.nav__item');
-  const sections = document.querySelectorAll('.section');
-  
-  let currentSection = 'inicio';
-  
-  // IntersectionObserver para detectar seção visível
-  const pageContainer = document.querySelector('.page');
-  
-  const sectionObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
-        const sectionId = entry.target.id;
-        currentSection = sectionId;
-        
-        // Atualiza estado do header
-        if (sectionId === 'inicio') {
-          header.classList.remove('header--scrolled');
-        } else {
-          header.classList.add('header--scrolled');
-        }
-        
-        // Atualiza menu ativo
-        navItems.forEach(item => item.classList.remove('nav__item--active'));
-        const activeItem = header.querySelector(`a[href="#${sectionId}"]`);
-        if (activeItem && sectionId !== 'inicio') {
-          activeItem.classList.add('nav__item--active');
-        }
+  function handleKeyboardNav(event) {
+    const sections = document.querySelectorAll('.section');
+    if (!sections.length) return;
+
+    const container = document.querySelector('.scroll-container');
+    if (!container) return;
+
+    const currentIndex = Math.round(container.scrollTop / container.clientHeight);
+    let targetIndex = currentIndex;
+
+    if (event.key === 'ArrowDown' || event.key === 'PageDown') {
+      targetIndex = Math.min(currentIndex + 1, sections.length - 1);
+    } else if (event.key === 'ArrowUp' || event.key === 'PageUp') {
+      targetIndex = Math.max(currentIndex - 1, 0);
+    } else if (event.key === 'Home') {
+      targetIndex = 0;
+    } else if (event.key === 'End') {
+      targetIndex = sections.length - 1;
+    } else {
+      return;
+    }
+
+    if (targetIndex !== currentIndex) {
+      event.preventDefault();
+      sections[targetIndex].scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
+  /* --- Anchor Navigation -------------------------------------- */
+
+  var isNavigating = false;
+
+  function updateActiveNav(sectionId) {
+    document.querySelectorAll('.catalog-header__nav-link').forEach(function (link) {
+      var linkTarget = link.getAttribute('href').slice(1);
+      var isActive = linkTarget === sectionId;
+      link.classList.toggle('catalog-header__nav-link--active', isActive);
+      if (isActive) {
+        link.setAttribute('aria-current', 'page');
+      } else {
+        link.removeAttribute('aria-current');
       }
     });
-  }, {
-    root: pageContainer,
-    threshold: 0.5,
-    rootMargin: '0px'
-  });
-  
-  sections.forEach(section => sectionObserver.observe(section));
+  }
 
-  // ============================================
-  // Mobile Menu Toggle
-  // ============================================
-  const mobileToggle = document.querySelector('.header__mobile-toggle');
-  const nav = document.querySelector('.nav');
-  
-  if (mobileToggle && nav) {
-    mobileToggle.addEventListener('click', () => {
-      const isOpen = mobileToggle.classList.toggle('active');
-      nav.classList.toggle('nav--mobile-open', isOpen);
-      mobileToggle.setAttribute('aria-expanded', isOpen);
-      
-      // Prevent body scroll when menu is open
-      document.body.style.overflow = isOpen ? 'hidden' : '';
+  function initAnchorNav() {
+    document.addEventListener('click', function (e) {
+      var link = e.target.closest('a[href^="#"]');
+      if (!link) return;
+
+      var targetId = link.getAttribute('href').slice(1);
+      var target = document.getElementById(targetId);
+      if (!target) return;
+
+      e.preventDefault();
+      isNavigating = true;
+      history.pushState(null, '', '#' + targetId);
+      updateActiveNav(targetId);
+      target.scrollIntoView({ behavior: 'smooth' });
+
+      setTimeout(function () { isNavigating = false; }, 1000);
     });
-    
-    // Close menu when clicking on a nav item
-    nav.querySelectorAll('.nav__item').forEach(item => {
-      item.addEventListener('click', () => {
-        mobileToggle.classList.remove('active');
-        nav.classList.remove('nav--mobile-open');
-        mobileToggle.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
+
+    window.addEventListener('popstate', function () {
+      var hash = window.location.hash.slice(1);
+      var target = hash && document.getElementById(hash);
+      if (target) {
+        isNavigating = true;
+        updateActiveNav(hash);
+        target.scrollIntoView({ behavior: 'smooth' });
+        setTimeout(function () { isNavigating = false; }, 1000);
+      }
+    });
+  }
+
+  function initSectionObserver() {
+    var sections = document.querySelectorAll('.section[id]');
+    if (!sections.length) return;
+
+    var observer = new IntersectionObserver(function (entries) {
+      if (isNavigating) return;
+
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          var id = entry.target.id;
+          if (window.location.hash !== '#' + id) {
+            history.replaceState(null, '', '#' + id);
+          }
+          updateActiveNav(id);
+        }
+      });
+    }, { threshold: 0.6 });
+
+    sections.forEach(function (section) {
+      observer.observe(section);
+    });
+  }
+
+  function initHeaderVisibility() {
+    var header = document.getElementById('global-header');
+    var home = document.getElementById('home');
+    if (!header || !home) return;
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        header.classList.toggle('catalog-header--hidden', entry.isIntersecting);
+      });
+    }, { threshold: 0.3 });
+
+    observer.observe(home);
+  }
+
+  function scrollToHashOnLoad() {
+    var hash = window.location.hash.slice(1);
+    if (!hash) return;
+    var target = document.getElementById(hash);
+    if (target) {
+      setTimeout(function () {
+        target.scrollIntoView({ behavior: 'smooth' });
+        updateActiveNav(hash);
+      }, 100);
+    }
+  }
+
+  /* --- Carousel ----------------------------------------------- */
+
+  function initCarousels() {
+    const carousels = document.querySelectorAll('.carousel');
+
+    carousels.forEach(function (carousel) {
+      const track = carousel.querySelector('.carousel__track');
+      const slides = track.querySelectorAll('.carousel__slide');
+      const btnPrev = carousel.querySelector('.carousel__btn--prev');
+      const btnNext = carousel.querySelector('.carousel__btn--next');
+
+      if (!slides.length) return;
+
+      let currentIndex = 0;
+
+      function updateCarousel() {
+        const offset = -(currentIndex * 100);
+        track.style.transform = 'translateX(' + offset + '%)';
+
+        btnPrev.disabled = currentIndex === 0;
+        btnNext.disabled = currentIndex === slides.length - 1;
+
+        slides.forEach(function (slide, i) {
+          slide.setAttribute('aria-hidden', String(i !== currentIndex));
+        });
+
+        const liveRegion = carousel.querySelector('.carousel__live');
+        if (liveRegion) {
+          liveRegion.textContent = 'Item ' + (currentIndex + 1) + ' de ' + slides.length;
+        }
+      }
+
+      function goTo(index) {
+        currentIndex = Math.max(0, Math.min(index, slides.length - 1));
+        updateCarousel();
+      }
+
+      btnPrev.addEventListener('click', function () {
+        goTo(currentIndex - 1);
+      });
+
+      btnNext.addEventListener('click', function () {
+        goTo(currentIndex + 1);
+      });
+
+      carousel.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          goTo(currentIndex - 1);
+        } else if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          goTo(currentIndex + 1);
+        }
+      });
+
+      updateCarousel();
+    });
+  }
+
+  /* --- i18n --------------------------------------------------- */
+
+  var i18nCache = {};
+  var currentLang = localStorage.getItem('lang') || 'pt';
+
+  var LANG_MAP = {
+    pt: 'pt-BR',
+    en: 'en',
+    es: 'es',
+    zh: 'zh'
+  };
+
+  function loadTranslations(lang) {
+    if (i18nCache[lang]) {
+      return Promise.resolve(i18nCache[lang]);
+    }
+    return fetch('lang/' + lang + '.json')
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        i18nCache[lang] = data;
+        return data;
+      });
+  }
+
+  function applyTranslations(translations) {
+    document.querySelectorAll('[data-i18n]').forEach(function (el) {
+      var key = el.getAttribute('data-i18n');
+      if (translations[key] !== undefined) {
+        el.textContent = translations[key];
+      }
+    });
+
+    document.querySelectorAll('[data-i18n-html]').forEach(function (el) {
+      var key = el.getAttribute('data-i18n-html');
+      if (translations[key] !== undefined) {
+        el.innerHTML = translations[key];
+      }
+    });
+
+    document.querySelectorAll('[data-i18n-attr]').forEach(function (el) {
+      var pairs = el.getAttribute('data-i18n-attr').split(',');
+      pairs.forEach(function (pair) {
+        var parts = pair.split(':');
+        var attr = parts[0].trim();
+        var key = parts[1].trim();
+        if (translations[key] !== undefined) {
+          el.setAttribute(attr, translations[key]);
+        }
+      });
+    });
+
+    document.documentElement.lang = LANG_MAP[currentLang] || currentLang;
+  }
+
+  function setLanguage(lang) {
+    currentLang = lang;
+    localStorage.setItem('lang', lang);
+    loadTranslations(lang).then(applyTranslations);
+  }
+
+  /* --- Language Selector -------------------------------------- */
+
+  function initLangSelectors() {
+    var selectors = document.querySelectorAll('.lang-selector');
+
+    var savedLang = localStorage.getItem('lang') || 'pt';
+    var savedOption = document.querySelector('[data-lang="' + savedLang + '"]');
+    if (savedOption) {
+      var flagSrc = savedOption.dataset.flag;
+      selectors.forEach(function (s) {
+        var toggleImg = s.querySelector('.lang-selector__toggle .lang-selector__flag');
+        if (toggleImg) toggleImg.src = flagSrc;
+        s.querySelectorAll('[role="option"]').forEach(function (li) {
+          li.setAttribute('aria-selected', 'false');
+        });
+        var match = s.querySelector('[data-lang="' + savedLang + '"]');
+        if (match) match.closest('[role="option"]').setAttribute('aria-selected', 'true');
+      });
+    }
+
+    if (savedLang !== 'pt') {
+      setLanguage(savedLang);
+    }
+
+    selectors.forEach(function (selector) {
+      var toggle = selector.querySelector('.lang-selector__toggle');
+      var options = selector.querySelectorAll('.lang-selector__option');
+
+      toggle.addEventListener('click', function () {
+        var isOpen = selector.classList.toggle('lang-selector--open');
+        toggle.setAttribute('aria-expanded', String(isOpen));
+      });
+
+      options.forEach(function (option) {
+        option.addEventListener('click', function () {
+          var lang = option.dataset.lang;
+          var flagSrc = option.dataset.flag;
+
+          selectors.forEach(function (s) {
+            var toggleImg = s.querySelector('.lang-selector__toggle .lang-selector__flag');
+            if (toggleImg) toggleImg.src = flagSrc;
+
+            s.classList.remove('lang-selector--open');
+            s.querySelector('.lang-selector__toggle').setAttribute('aria-expanded', 'false');
+
+            s.querySelectorAll('[role="option"]').forEach(function (li) {
+              li.setAttribute('aria-selected', 'false');
+            });
+            var matchingOption = s.querySelector('[data-lang="' + lang + '"]');
+            if (matchingOption) {
+              matchingOption.closest('[role="option"]').setAttribute('aria-selected', 'true');
+            }
+          });
+
+          setLanguage(lang);
+        });
+      });
+    });
+
+    document.addEventListener('click', function (e) {
+      selectors.forEach(function (selector) {
+        if (!selector.contains(e.target)) {
+          selector.classList.remove('lang-selector--open');
+          selector.querySelector('.lang-selector__toggle').setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        selectors.forEach(function (selector) {
+          selector.classList.remove('lang-selector--open');
+          selector.querySelector('.lang-selector__toggle').setAttribute('aria-expanded', 'false');
+        });
+      }
+    });
+  }
+
+  /* --- About Tabs (Missão/Visão/Valores) ---------------------- */
+
+  function initAboutTabs() {
+    document.addEventListener('click', function (e) {
+      var handle = e.target.closest('.about__tab-handle');
+      if (!handle) return;
+
+      e.stopPropagation();
+
+      var container = handle.closest('.about__tabs-container');
+      if (!container) return;
+
+      var targetTab = handle.dataset.tabTarget;
+
+      container.querySelectorAll('.about__tab-handle').forEach(function (h) {
+        var isActive = h.dataset.tabTarget === targetTab;
+        h.classList.toggle('about__tab-handle--active', isActive);
+        h.setAttribute('aria-selected', String(isActive));
+      });
+
+      container.querySelectorAll('.about__tab-card').forEach(function (card) {
+        var isActive = card.dataset.tab === targetTab;
+        card.classList.toggle('about__tab-card--active', isActive);
       });
     });
   }
 
-  // ============================================
-  // Smooth Scroll para Seções Completas
-  // ============================================
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', (e) => {
+  /* --- Contact Form (Google Forms) ----------------------------- */
+
+  var GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdqwpTixmlnqDQI-emHcuDsGXwxm-OGb5IjM7CnEvetu1FPgg/formResponse';
+
+  var SUBJECT_MAP = {
+    arquitetura: 'Projeto de Arquitetura',
+    interiores: 'Design de Interiores',
+    marcenaria: 'Marcenaria',
+    artesanato: 'Artesanato em Couro',
+    produtos: 'Produtos',
+    orcamento: 'Orçamento',
+    outro: '__other_option__'
+  };
+
+  function initContactForm() {
+    var form = document.getElementById('contact-form');
+    if (!form) return;
+
+    form.addEventListener('submit', function (e) {
       e.preventDefault();
-      const targetId = anchor.getAttribute('href');
-      const target = document.querySelector(targetId);
-      
-      if (target && pageContainer) {
-        pageContainer.scrollTo({
-          top: target.offsetTop,
-          behavior: 'smooth'
-        });
+
+      var submitBtn = form.querySelector('.contact__submit');
+      var originalText = submitBtn.textContent;
+
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
       }
-    });
-  });
 
-  // ============================================
-  // Galeria Horizontal - Drag Scroll
-  // ============================================
-  const galleries = document.querySelectorAll('.services__gallery, .products__gallery');
-
-  galleries.forEach(gallery => {
-    let isDown = false;
-    let startX;
-    let scrollLeft;
-
-    gallery.addEventListener('mousedown', (e) => {
-      isDown = true;
-      gallery.style.cursor = 'grabbing';
-      startX = e.pageX - gallery.offsetLeft;
-      scrollLeft = gallery.scrollLeft;
-    });
-
-    gallery.addEventListener('mouseleave', () => {
-      isDown = false;
-      gallery.style.cursor = 'grab';
-    });
-
-    gallery.addEventListener('mouseup', () => {
-      isDown = false;
-      gallery.style.cursor = 'grab';
-    });
-
-    gallery.addEventListener('mousemove', (e) => {
-      if (!isDown) return;
-      e.preventDefault();
-      const x = e.pageX - gallery.offsetLeft;
-      const walk = (x - startX) * 2;
-      gallery.scrollLeft = scrollLeft - walk;
-    });
-
-    gallery.style.cursor = 'grab';
-  });
-
-  // ============================================
-  // Galeria - Setas de Navegação
-  // ============================================
-  const galleryContainers = document.querySelectorAll('.gallery-container');
-  
-  galleryContainers.forEach(container => {
-    const gallery = container.querySelector('.services__gallery, .products__gallery');
-    const leftArrow = container.querySelector('.gallery-arrow--left');
-    const rightArrow = container.querySelector('.gallery-arrow--right');
-    
-    if (!gallery || !leftArrow || !rightArrow) return;
-    
-    const scrollAmount = 640; // Largura do card (600) + gap (40)
-    
-    // Função para atualizar estado das setas
-    const updateArrows = () => {
-      leftArrow.disabled = gallery.scrollLeft <= 0;
-      rightArrow.disabled = gallery.scrollLeft >= gallery.scrollWidth - gallery.clientWidth - 10;
-    };
-    
-    // Scroll para esquerda
-    leftArrow.addEventListener('click', () => {
-      gallery.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-    });
-    
-    // Scroll para direita
-    rightArrow.addEventListener('click', () => {
-      gallery.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-    });
-    
-    // Atualiza estado das setas ao fazer scroll
-    gallery.addEventListener('scroll', updateArrows);
-    
-    // Estado inicial
-    updateArrows();
-  });
-
-  // ============================================
-  // About Section Tabs
-  // ============================================
-  const aboutTabs = document.querySelectorAll('.about__tab');
-  const aboutFrames = document.querySelectorAll('.about__frames[data-img]');
-  const aboutTexts = document.querySelectorAll('.about__text[data-text]');
-
-  aboutTabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      const target = tab.dataset.tab;
-      
-      // Remove active state from all tabs, frames, and texts
-      aboutTabs.forEach(t => t.classList.remove('about__tab--active'));
-      aboutFrames.forEach(f => f.classList.remove('about__frames--active'));
-      aboutTexts.forEach(t => t.classList.remove('about__text--active'));
-      
-      // Add active state to clicked tab
-      tab.classList.add('about__tab--active');
-      
-      // Show corresponding frame and text
-      document.querySelector(`[data-img="${target}"]`)?.classList.add('about__frames--active');
-      document.querySelector(`[data-text="${target}"]`)?.classList.add('about__text--active');
-    });
-  });
-
-  // ============================================
-  // Formulário de Contato
-  // ============================================
-  const contactForm = document.getElementById('contact-form');
-
-  if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      
-      const formData = new FormData(contactForm);
-      const data = Object.fromEntries(formData);
-      
-      console.log('Formulário enviado:', data);
-      
-      const submitBtn = contactForm.querySelector('.contact__submit');
-      const originalText = submitBtn.textContent;
-      submitBtn.textContent = 'ENVIADO!';
       submitBtn.disabled = true;
-      
-      setTimeout(() => {
-        submitBtn.textContent = originalText;
+      var t = i18nCache[currentLang] || {};
+      submitBtn.textContent = t['contact.sending'] || 'Enviando...';
+
+      var formData = new URLSearchParams();
+      formData.append('entry.855736564', form.elements.name.value);
+      formData.append('entry.648834982', form.elements.email.value);
+      formData.append('entry.2092873473', form.elements.message.value);
+
+      var subjectValue = form.elements.subject.value;
+      var mappedSubject = SUBJECT_MAP[subjectValue] || subjectValue;
+      formData.append('entry.1347159864', mappedSubject);
+      if (subjectValue === 'outro') {
+        formData.append('entry.1347159864.other_option_response', 'Outro');
+      }
+
+      fetch(GOOGLE_FORM_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: formData.toString()
+      }).then(function () {
+        submitBtn.textContent = t['contact.sent'] || 'Enviado!';
+        form.reset();
+        setTimeout(function () {
+          submitBtn.textContent = t['contact.submit'] || originalText;
+          submitBtn.disabled = false;
+        }, 3000);
+      }).catch(function () {
+        submitBtn.textContent = t['contact.error'] || 'Erro — tente novamente';
         submitBtn.disabled = false;
-        contactForm.reset();
-      }, 2000);
+        setTimeout(function () { submitBtn.textContent = t['contact.submit'] || originalText; }, 3000);
+      });
     });
   }
 
-  // ============================================
-  // Animação fade-in ao scroll
-  // ============================================
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-  };
+  /* --- Slide Modal -------------------------------------------- */
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        observer.unobserve(entry.target);
+  function initSlideModal() {
+    var modal = document.getElementById('slide-modal');
+    if (!modal) return;
+
+    var modalTitle = modal.querySelector('.modal-overlay__title');
+    var modalDesc = modal.querySelector('.modal-overlay__desc');
+    var closeBtn = modal.querySelector('.modal-overlay__close');
+
+    function openModal(title, desc) {
+      modalTitle.textContent = title;
+      modalDesc.textContent = desc;
+      modal.classList.add('modal-overlay--open');
+      modal.setAttribute('aria-hidden', 'false');
+      closeBtn.focus();
+    }
+
+    function closeModal() {
+      modal.classList.remove('modal-overlay--open');
+      modal.setAttribute('aria-hidden', 'true');
+    }
+
+    var images = document.querySelectorAll('.carousel__image');
+    images.forEach(function (img) {
+      img.addEventListener('click', function () {
+        var slide = img.closest('.carousel__slide');
+        if (!slide) return;
+
+        var caption = slide.querySelector('.carousel__caption');
+        if (!caption) return;
+
+        var title = caption.querySelector('.carousel__caption-title');
+        var desc = caption.querySelector('.carousel__caption-desc');
+
+        openModal(
+          title ? title.textContent : '',
+          desc ? desc.textContent : ''
+        );
+      });
+    });
+
+    closeBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      closeModal();
+    });
+
+    modal.addEventListener('click', function (e) {
+      if (e.target === modal) closeModal();
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && modal.classList.contains('modal-overlay--open')) {
+        closeModal();
       }
     });
-  }, observerOptions);
+  }
 
-  document.querySelectorAll('.services__card, .products__item, .about__text').forEach(el => {
-    el.style.opacity = '0';
-    observer.observe(el);
-  });
-});
+  /* --- Init --------------------------------------------------- */
+
+  function init() {
+    document.addEventListener('keydown', handleKeyboardNav);
+    initAnchorNav();
+    initSectionObserver();
+    initHeaderVisibility();
+    scrollToHashOnLoad();
+    initCarousels();
+    initLangSelectors();
+    initAboutTabs();
+    initContactForm();
+    initSlideModal();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
