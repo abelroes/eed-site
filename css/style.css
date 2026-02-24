@@ -179,6 +179,8 @@ img {
   height: 100vh;
   height: 100dvh;
   padding: var(--space-lg);
+  text-decoration: none;
+  color: inherit;
 }
 
 .home__logo-grid {
